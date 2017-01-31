@@ -23,8 +23,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void withdraw(Account account, double amount) throws NotEnoughFundsException {
-        if (amount < 0)
-            throw new IllegalArgumentException("Amount can't be negative.");
         switch (account.getType()) {
             case SAVING: {
                 double balance = account.getBalance();
@@ -37,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
             }
             case CHECKING: {
                 double available = account.getBalance();
-                if (available >= amount && available > ((CheckingAccount) account).getOverdraft()) {
+                if (available >= amount && (available - amount) >= ((CheckingAccount) account).getOverdraft()) {
                     account.setBalance(available - amount);
                 } else {
                     throw new OverdraftLimitExceededException(available);
@@ -49,6 +47,7 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
     public void setActiveAccService(Account activeAcc, Client client) {
         List<Account> accList = client.getListOfAcc();
         if (accList.contains(activeAcc)) {

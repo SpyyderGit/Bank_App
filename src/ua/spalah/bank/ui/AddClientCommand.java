@@ -1,12 +1,10 @@
 package ua.spalah.bank.ui;
 
-import ua.spalah.bank.Gender;
+import ua.spalah.bank.models.Gender;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.services.ClientService;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Oleg on 15.01.2017.

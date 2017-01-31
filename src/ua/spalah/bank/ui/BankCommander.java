@@ -1,18 +1,15 @@
 package ua.spalah.bank.ui;
 
-import ua.spalah.bank.Gender;
+import ua.spalah.bank.models.Gender;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.exceptions.OverdraftLimitExceededException;
 import ua.spalah.bank.models.Bank;
 import ua.spalah.bank.models.Client;
-import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.accounts.SavingAccount;
 import ua.spalah.bank.services.AccountService;
-import ua.spalah.bank.services.BankReportService;
 import ua.spalah.bank.services.ClientService;
 import ua.spalah.bank.services.impl.AccountServiceImpl;
-import ua.spalah.bank.services.impl.BankReportServiceImpl;
 import ua.spalah.bank.services.impl.ClientServiceImpl;
 
 import java.util.Scanner;
@@ -43,74 +40,46 @@ public class BankCommander {
 
         AccountService accountService = new AccountServiceImpl();
         ClientService clientService = new ClientServiceImpl();
-        BankReportService bankReportService = new BankReportServiceImpl();
 
-        Client john = new Client("John", Gender.MALE);
-        Client katya = new Client("Katya", Gender.FAMALE);
-        Client petya = new Client("Petya", Gender.MALE);
-        Client sofia = new Client("Sofia", Gender.FAMALE);
-        Client anya = new Client("Anya", Gender.FAMALE);
+        Scanner pClient = new Scanner(ClassLoader.getSystemResourceAsStream("ua/spalah/bank/resources/clients.txt"));
+        Scanner pAcc = new Scanner(ClassLoader.getSystemResourceAsStream("ua/spalah/bank/resources/accounts.txt"));
 
-//================== Регистрируем клиентов в банке ==========
+        String[] clientData;
+        String[] accData;
 
-        clientService.saveClient(prostoBank, john);
-        clientService.saveClient(prostoBank, katya);
-        clientService.saveClient(prostoBank, petya);
-        clientService.saveClient(prostoBank, sofia);
-        clientService.saveClient(prostoBank, anya);
-//=================== Добавляем им счета ====================
-//-------------------- для Джона ----------------------------
-        Account accDepositJohn = new SavingAccount(1000);
-        Account accCreditJohn = new CheckingAccount(2000, 300);
-        john.addAcc(accCreditJohn);
-        john.addAcc(accDepositJohn);
+        while (pClient.hasNext()) {
+            clientData = pClient.nextLine().split("::");
+            clientService.saveClient(currentBank, new Client(clientData[0], (clientData[1].equals("MALE") ? Gender.MALE : Gender.FAMALE), clientData[2], clientData[3], clientData[4]));
+        }
 
-//-------------------- для Кати -------------------------------
-        Account accDepositKatya = new SavingAccount(150);
-        Account accCreditKatya = new CheckingAccount(250, 350);
-        katya.addAcc(accCreditKatya);
-        katya.addAcc(accDepositKatya);
-//------------------ для Пети ---------------------------------
-        Account accDepositPetya = new SavingAccount(50);
-        Account accCreditPetya = new CheckingAccount(50, 30);
-        petya.addAcc(accCreditPetya);
-        petya.addAcc(accDepositPetya);
-//---------------- для Софии ----------------------------------
-        Account accDepositSof = new SavingAccount(1050);
-        Account accCreditSof = new CheckingAccount(1500, 1300);
-        sofia.addAcc(accCreditSof);
-        sofia.addAcc(accDepositSof);
+        while (pAcc.hasNext()) {
+            accData = pAcc.nextLine().split("::");
+            if (currentBank.getAllClients().containsKey(accData[0])) {
+                if (accData[1].equals("CHECKING")) {
+                    clientService.addAcc(currentBank.getAllClients().get(accData[0]), new CheckingAccount(Double.parseDouble(accData[2]), Double.parseDouble(accData[3])));
+                } else if (accData[1].equals("SAVING")) {
+                    clientService.addAcc(currentBank.getAllClients().get(accData[0]), new SavingAccount(Double.parseDouble(accData[2])));
+                }
+            }
+        }
+        commands = new Command[]
 
-//------------------ для Ани ----------------------------------
+                {
+                        new FindClientCommand(clientService),
+                        new GetAccountsCommand(),
+                        new SelectActiveAccountCommand(),
+                        new DepositCommand(accountService),
+                        new WithdrawCommand(accountService),
+                        new TransferCommand(accountService),
+                        new AddClientCommand(clientService),
+                        new AddAccountCommand(),
+                        new RemoveClientCommand(clientService),
+                        new GetBankInfoCommand(),
+                        new ExitCommand()
+                }
 
-        Account accDepositAnya = new SavingAccount(3050);
-        Account accCreditAnya = new CheckingAccount(3500, 3300);
-        anya.addAcc(accCreditAnya);
-        anya.addAcc(accDepositAnya);
-
-        anya.setCity("Dnepr");
-        john.setCity("Lviv");
-        petya.setCity("Dnepr");
-        sofia.setCity("Lviv");
-        katya.setCity("Dnepr");
-
-
-
-        commands = new Command[]{new FindClientCommand(clientService),
-                new GetAccountsCommand(),
-                new SelectActiveAccountCommand(),
-                new DepositCommand(accountService),
-                new WithdrawCommand(accountService),
-                new TransferCommand(accountService),
-                new AddClientCommand(clientService),
-                new AddAccountCommand(),
-                new RemoveClientCommand(clientService),
-                new GetBankInfoCommand(),
-                new ExitCommand()};
+        ;
     }
-
-
-
 
     public void run() throws ClientNotFoundException, OverdraftLimitExceededException {
         // запускаем наше приложение

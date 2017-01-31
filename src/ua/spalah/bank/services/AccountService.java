@@ -1,6 +1,7 @@
 package ua.spalah.bank.services;
 
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
 
 /**
@@ -12,4 +13,6 @@ public interface AccountService {
     void withdraw(Account account, double amount) throws NotEnoughFundsException;
 
     void transfer(Account fromAccount, Account toAccount, double amount) throws NotEnoughFundsException;
+
+    void setActiveAccService(Account activeAcc, Client client);
 }

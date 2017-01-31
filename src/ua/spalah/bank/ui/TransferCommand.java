@@ -28,7 +28,7 @@ public class TransferCommand implements Command {
         System.out.print("Create amount: ");
         double amount = client.nextInt();
 
-        for (Client c : BankCommander.currentBank.getAllClients()) {
+        for (Client c : BankCommander.currentBank.getAllClients().values()) {
             if (c.getName().equals(toClient))
                 toAccount = c.getActiveAcc();
         }

@@ -4,6 +4,8 @@ import ua.spalah.bank.exceptions.OverdraftLimitExceededException;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.accounts.SavingAccount;
+import ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.services.impl.ClientServiceImpl;
 
 import java.util.Scanner;
 
@@ -16,6 +18,8 @@ public class AddAccountCommand implements Command {
     public void execute() throws OverdraftLimitExceededException {
         System.out.println("1 - Checking account\n2 - Saving account");
         Scanner bal = new Scanner(System.in);
+        ClientService clientService = new ClientServiceImpl();
+
         int n = bal.nextInt();
         double setBal = bal.nextDouble();
         Account acc = null;
@@ -31,8 +35,9 @@ public class AddAccountCommand implements Command {
                 break;
             }
         }
+        clientService.addAcc(BankCommander.currentClient, acc);
 
-        BankCommander.currentClient.addAcc(acc);
+//        BankCommander.currentClient.addAcc(acc);
         System.out.println("Do you wont activate this acc? y/n");
 
         System.out.println("Operation is compalted");

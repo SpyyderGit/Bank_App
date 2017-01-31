@@ -5,6 +5,7 @@ import ua.spalah.bank.models.Client;
 import ua.spalah.bank.services.BankReportService;
 import ua.spalah.bank.services.ClientService;
 
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -24,9 +25,9 @@ public class RemoveClientCommand implements Command {
         String delClient = del.nextLine();
         Client client = null;
 
-        for (Client c : BankCommander.currentBank.getAllClients()) {
+        for (Client c : BankCommander.currentBank.getAllClients().values()) {
             if (c.getName().equals(delClient)) {
-                client = c;
+                client = (Client) c;
             }
         }
         try {
