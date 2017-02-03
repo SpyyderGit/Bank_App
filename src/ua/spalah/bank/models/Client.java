@@ -1,6 +1,5 @@
 package ua.spalah.bank.models;
 
-import ua.spalah.bank.Gender;
 import ua.spalah.bank.models.accounts.Account;
 
 import java.util.ArrayList;
@@ -26,25 +25,29 @@ public class Client {
         this.gender = gender;
     }
 
+    public Client(String name, Gender gender, String email, String phone, String city) {
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.phone = phone;
+        this.city = city;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void addAcc(Account acc) {
-        if (activeAcc == null) {
-            activeAcc = acc;
-        }
-        listOfAcc.add(acc);
-    }
+
+
 
     public void setActiveAcc(Account activeAcc) {
+
         this.activeAcc = activeAcc;
     }
 
     public Account getActiveAcc() {
         return activeAcc;
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -67,9 +70,9 @@ public class Client {
     }
 
     public ArrayList<Account> getListOfAcc() {
+
         return listOfAcc;
     }
-
 
     public String getEmail() {
         return email;
