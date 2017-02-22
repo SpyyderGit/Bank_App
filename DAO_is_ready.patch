@@ -1,0 +1,16 @@
+Index: src/main/java/ua/spalah/bank/services/impl/ClientServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ua/spalah/bank/services/impl/ClientServiceImpl.java	(date 1487801895000)
++++ src/main/java/ua/spalah/bank/services/impl/ClientServiceImpl.java	(revision )
+@@ -62,8 +62,6 @@
+ 
+         activeAcc.setAccId(accountDao.getMaxId());
+         System.out.println(activeAcc.getAccId());
+-
+-
+         Client clientTmp = new Client(client.getName(), client.getGender(), client.getEmail(), client.getPhone(),
+                 client.getCity(), client.getClientId(), activeAcc.getAccId());
+         clientTmp.setActiveAcc(activeAcc);

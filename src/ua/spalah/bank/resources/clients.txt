@@ -1,5 +1,0 @@
-John Silver::MALE::js@gmail.com::067-564-13-55::Dnipro
-Katya Bukina::FAMALE::kb@gmail.com::093-161-13-12::Lvov
-Petya Kabadze::MALE::pk@gmail.com::098-462-22-32::Dnipro
-Sofia Baba::FAMALE::sb@gmail.com::068-462-22-32::Dnipro
-Anya Kabasya::FAMALE::ak@gmail.com::063-352-26-32::Lvov
