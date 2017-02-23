@@ -17,7 +17,7 @@
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_64C44E6C_B077_4E04_925C_C0BA2B920AAE)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_EEB3CCF5_0EBB_45A7_9759_1F7B0B0B0C7F)</DefaultExpression>
     </column>
     <column id="8" parent="5" name="BALANCE">
       <Position>2</Position>
@@ -54,7 +54,7 @@
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7469DAE4_0C9C_47F0_A819_C9D2089806F8)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_ABC8328F_9CD0_45A0_A480_F4A83F3604C6)</DefaultExpression>
     </column>
     <column id="15" parent="6" name="NAME">
       <Position>2</Position>
